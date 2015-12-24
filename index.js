@@ -5,6 +5,7 @@
 }('sticky', function() {
 
   return function sticky(el, top, cb) {
+    if (el === undefined) return;
 
     var requiredOriginalStyles = ['position', 'top', 'left', 'z-index'];
 
