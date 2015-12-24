@@ -4,7 +4,7 @@
   else this[name] = definition();
 }('sticky', function() {
 
-  return function sticky(el, top) {
+  return function sticky(el, top, cb) {
 
     var requiredOriginalStyles = ['position', 'top', 'left', 'z-index'];
 
@@ -26,16 +26,18 @@
     if (window.onscroll) {
       onscroll = window.onscroll;
     }
-    
+
     window.onscroll = function(event) {
       if (getWindowScroll().top > originalRect.top - requiredTop) {
         for (key in styles) {
           el.style[key] = styles[key];
         }
+        if (typeof cb === 'function') cb(true);
       } else {
         for (key in originalStyles) {
           el.style[key] = originalStyles[key];
         }
+        if (typeof cb === 'function') cb(false);
       }
       onscroll && onscroll(event)
     }
